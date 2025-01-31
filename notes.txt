@@ -22,34 +22,14 @@ project_name/
 └── .gitignore             # Ignore unnecessary files (e.g., data, compiled files)
 
 
-python3 -m venv venv
-source venv/bin/activate  # On Windows, use venv\Scripts\activate
-pip install -r requirements.txt
-
-conda create --name myenv python=3.x
-conda activate myenv
+conda create -n cl python=3.10 --yes
+conda activate cl
 conda install --file environment.yml
 
+conda install -c conda-forge datasets
 
-config.yaml
-data:
-  raw_path: "./data/raw"
-  processed_path: "./data/processed"
-
-model:
-  save_path: "./models/"
-  name: "cnn_model"
-
-training:
-  batch_size: 32
-  learning_rate: 0.001
-  epochs: 20
-
-
-use relative paths:
-import os
-
-data_path = os.path.join(os.path.dirname(__file__), "data", "raw")
+# before running data_preprocessing.py
+huggingface-cli login
 
 
 1 Environment Setup
