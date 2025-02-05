@@ -14,9 +14,10 @@ processed_data_path = os.path.join(data_path, "processed")
 print('processed_data_path:', processed_data_path)
 
 def download_imagenet(output_dir=raw_data_path):
-    """Download the ImageNet-1K dataset from Hugging Face."""
-    dataset = load_dataset("imagenet-1k", split="train", trust_remote_code=True)
+    """Download the ImageNet-1K dataset to a custom directory."""
     os.makedirs(output_dir, exist_ok=True)
+    print(f"Downloading ImageNet-1K dataset to: {output_dir}")
+    dataset = load_dataset("imagenet-1k", split="train", trust_remote_code=True, cache_dir=output_dir)
     
     return dataset
 
@@ -40,7 +41,7 @@ def save_filtered_dataset(filtered_data, output_dir=processed_data_path):
         item['image'].save(img_path)
 
 if __name__ == "__main__":
-    vehicle_classes = {"car", "bus", "truck", "motorcycle", "bicycle"}  # Replace with actual class indices
     dataset = download_imagenet()
-    filtered_data = filter_vehicles(dataset, vehicle_classes)
-    save_filtered_dataset(filtered_data)
+    vehicle_classes = {"car", "bus", "truck", "motorcycle", "bicycle"}  # Replace with actual class indices
+    # filtered_data = filter_vehicles(dataset, vehicle_classes)
+    # save_filtered_dataset(filtered_data)
